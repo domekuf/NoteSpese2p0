@@ -1,0 +1,42 @@
+<!--\\portal1\shares\modules\CED\NoteSpese2p0\call\html\trasf\trasf.html-->
+<div id="trasf_id[id_trasf]" class="row almond click" onclick="[open]">
+	<input type="hidden" name="id_trasf" value="[id_trasf]"/>
+	<input type="hidden" name="desc_trasf" value="[desc_trasf]"/>
+	<input type="hidden" name="rs_usr" value="[rs_usr]"/>
+	<input type="hidden" name="totale" value="[totale]"/>
+	<input type="hidden" name="totale_ob" value="[totale_ob]"/>
+	<input type="hidden" name="login_utente" value="[login_utente]"/>
+	<input type="hidden" name="login_utente_amm" value="[login_utente_amm]"/>
+	<div class="col-2"  >
+		<h3>[desc_trasf]</h3>
+	</div>
+	<div class="col-1">
+		<h3>[data_da]</h3>
+	</div>
+	<div class="col-1">
+		<h3>[data_a]</h3>
+	</div>
+	<div class="col-2">
+		<ul class="trans">
+			[lista_tappe]
+		</ul>
+	</div>
+	<div class="col-2">
+	<ul class="trans">
+		<li><strong>Totale</strong>: [totale] &euro;		</li>
+		<li><strong>Carta</strong>: [totale_carta] &euro;		</li>
+		<li><strong>Contanti</strong>: [totale_contanti] &euro;	</li>
+		<li><strong>Totale Approvato</strong>: [totale_importo_approvato] &euro;	</li>
+		<li class="over"><strong>Overbudget</strong>: [totale_ob] &euro;	</li>
+	</ul>
+	</div>
+	<div class="col-4">
+		<button class="click" onclick="[open]" ><i class="fa fa-search"></i> Vedi Dettaglio</button>
+		[allegato]
+		<button class="click" onclick="[edit_itin]" ><i class="fa fa-map-signs"></i> Modifica Itinerario</button>
+		<button class="click" onclick="[del]"><i class="fa fa-trash"></i> Elimina</button>
+		[contabilizza]
+		<!--button class="click" onclick="[submit]"><i class="fa fa-check"></i> Conferma</button-->
+		<h3>Stato: [status]</h3>
+	</div>
+</div>

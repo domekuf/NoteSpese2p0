@@ -1,0 +1,96 @@
+<div id="hotel_wallet">
+<input style="display:none" type="text" name="Q" value="WinDettHotelDb">
+<input style="display:none" type="text" id="hotel_importo" name="hotel_importo" value="[hotel_importo]">
+<input style="display:none" type="text" name="id_dett" value="[id_dett]">
+<input style="display:none" type="text" name="id_trasf" value="[id_trasf]">
+<input style="display:none" type="text" name="id_hotel" value="[id_hotel]">
+	<div class="row almond">
+		<div class="col-12">
+			<h2>Dettagli Hotel</h2>
+		</div>
+	</div>
+	
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Totale Albergo</h3>
+		</div>
+		<div class="col-6">
+			<input id="totale_fattura" name="totale_fattura" type="text" class="numeric" value="[totale_fattura]">
+		</div>
+	</div>
+	<div style="display:none" class="row bone"><div class="col-3">
+		Numero Colazioni
+		<input id="n_colazioni" name="n_colazioni" type="text" class="numeric" value="0">
+	</div></div>
+	<div style="display:none" class="row bone"><div class="col-3">
+		Numero Colazioni
+		<input id="n_colazioni" name="n_colazioni" type="text" class="numeric" value="0">
+		<input id="tot_colazioni" name="tot_colazioni" type="text" class="numeric" value="0">
+		<input id="n_cene" name="n_cene" type="text" class="numeric" value="0">
+		<input id="tot_cene" name="tot_cene" type="text" class="numeric" value="0">
+		
+	</div></div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Numero Pasti:</h3>
+		</div>
+		<div class="col-6">
+			<input id="n_pranzi" name="n_pranzi" type="text" class="numeric" value="[n_pranzi]">
+		</div>
+	</div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Totale Pasti [&euro;]:</h3>
+		</div>
+		<div class="col-6">
+			<input id="tot_pranzi" name="tot_pranzi" type="text" class="numeric" value="[tot_pranzi]">
+		</div>
+	</div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Tassa di soggiorno [&euro;]:</h3>
+		</div>
+		<div class="col-6">
+			<input id="altro" name="altro" type="text" class="numeric" value="[altro]">
+		</div>
+	</div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Numero Notti:</h3>
+		</div>
+		<div class="col-6">
+			<input id="n_notti" name="n_notti" type="text" class="numeric" value="[n_notti]">
+		</div>
+	</div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Netto Hotel[&euro;]</h3>
+		</div>
+		<div class="col-6">
+			<input id="tot_notti" name="tot_notti" type="text" class="numeric" value="[tot_notti]">
+		</div>
+	</div>
+	<div class="row bone">
+		<div class="col-3">
+			<h3>Totale Calcolato [&euro;]:</h3>
+		</div>
+		<div class="col-6">
+			<input id="totale" name="totale" type="text" class="numeric" readonly="" value="[totale]">
+		</div>
+	</div>
+	<div class="row darkgreen">
+		<div class="col-6">
+			<button onclick="calcHotel()" style="cursor:pointer;" class="reload"><div>Calcola Hotel</div></button>
+		</div>
+		<div class="col-6">
+			<button id="hotel_save" onclick="pi.requestWinOpen('hotel_wallet')" style="cursor:pointer;display:none" class=""><div>Salva</div></button>
+
+			<button id="hotel_error" onclick="alert('Il totale indicato sulla fattura non coincide con quello calcolato')" style="cursor:pointer;display:none" class=""><i class="fa fa-exclamation-triangle fa-2x"></i> Errore</button>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+number_only();
+</script>

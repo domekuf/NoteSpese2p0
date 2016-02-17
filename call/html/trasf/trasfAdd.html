@@ -1,0 +1,59 @@
+<div id="[id_container]">
+<div style="display:none">
+<input type="text" name="id_trasf" id="win_id_trasf" value="[id_trasf]"/>
+<input type="text" name="Q" id="win_Q" value="[save_call]"/>
+</div>
+<div class="row almond">
+	<div class="col-12">
+		<h2>Inserisci Trasferta</h2>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Utente</h3>
+	</div>
+	<div class="col-6">
+		<input disabled name="login_utente" value="[login_utente]" type="text" id="win_login_utente"/>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Descrizione</h3>
+	</div>
+	<div class="col-6">
+		<input name="desc_trasf" placeholder="Descrizione Trasferta" value="" type="text" id="desc_trasf"/>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Evento</h3>
+	</div>
+	<div class="col-9">
+		<input type="radio" value="" name="id_gruppo">Trasferta Ordinaria
+		[radio_button]
+	</div>
+</div>
+<div class="row darkgreen">
+	<div class="col-3">
+	</div>
+	<div class="col-4">
+	</div>
+	<div class="col-5">
+		<button onclick="checkBeforeSave()"><i class="fa fa-save fa-lg"></i> Salva</button>
+	</div>
+</div>
+</div>
+<div style="display:none" id="msg">
+<input type="text" name="Q" value="Msg" />
+<input type="text" name="face" value="[face]" />
+<input type="text" name="content" value="[content]" />
+</div>
+<script>
+	function checkBeforeSave(){
+		if($('#desc_trasf').val()==''){
+			[err];
+		}else{
+			[save];
+		}
+	}
+</script>

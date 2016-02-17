@@ -1,0 +1,43 @@
+<div id="[id_container]">
+<div style="display:none">
+<input type="text" name="id_gruppo" id="win_id_gruppo" value="[id_gruppo]"/>
+<input type="text" name="descrizione" id="win_descrizione" value="[descrizione]"/>
+<input type="text" name="id_natura" id="win_id_natura" value="[id_natura]"/>
+<input type="text" name="value" id="win_value" value="0"/>
+<input type="text" name="Q" id="win_Q" value="asdf"/>
+</div>
+<div class="row almond">
+	<div class="col-12">
+		<h2>Dettagli Gruppo [descrizione]</h2>
+	</div>
+</div>
+<div class="row beige">
+	<div class="col-3">
+	[lista_soglie]
+	</div>
+	<div class="col-9">
+		<select name ="id_natura_sel" id="win_id_natura_sel" value=0>
+			[select_nature]
+		</select>
+		<input type="text" class="numeric" name="soglia" id="win_soglia"/>
+		<button onclick="add_soglia($('#win_id_natura_sel').val(),$('#win_soglia').val())">
+		<i class="fa fa-plus">
+		</i>
+		Aggiungi Soglia</button>
+	</div>
+</div>
+</div>
+<script>
+	function del_soglia(id_natura){
+		$('#win_id_natura').val(id_natura);
+		$('#win_Q').val('[del_soglia_call]');
+		[del_soglia];
+	}
+	function add_soglia(id_natura,value){
+		$('#win_id_natura').val(id_natura);
+		$('#win_value').val(value);
+		$('#win_Q').val('[add_soglia_call]');
+		[add_soglia];
+	}
+	number_only();
+</script>

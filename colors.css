@@ -1,0 +1,55 @@
+
+		div.darkgreen{
+			/*border-left : 5px solid rgb(180, 218, 115);*/
+			background-color: #1fa67a;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+			color: #ffffff;
+		}
+		div.beige{
+			background-color: #f5f2ee;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+		}
+		div.bone{
+			background-color: #e3dac9;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+		}
+		div.almond{
+			background-color: #efdecd;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+		}
+		div.grey{
+			background-color: #cfcfc4;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+		}
+		div.militar{
+			color: #ffffff;
+			background-color: #a1a18c;
+			padding : 5px;
+			margin : 0px;
+			margin-bottom : 3px;
+			display : block;
+			box-shadow : 0px 0px 2px #5C402E inset;
+		}
+		div.transparent{
+			opacity:0.6;
+		}

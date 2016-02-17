@@ -1,0 +1,45 @@
+<h1>Nuova Transazione</h1>
+<input name="login_utente" type="hidden" value="[login_utente]">
+<input name="id_dett" type="hidden" value="[id_dett]">
+<input name="id_trasf" type="hidden" value="[id_trasf]">
+<input name="rs_usr" type="hidden" value="[rs_usr]">
+<input name="soglia" type="hidden" value="[soglia]">
+<div class="row grey">
+	<div class="col-2">
+		<h3>Inserisci Data</h3>
+	</div>
+	<div class="col-4">
+		<input name="data" value="[data_da_2]" type="text" id="data_dett">
+	</div>
+	<div class="col-6">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-2">
+		<h3>Scegli Natura</h3>
+	</div>
+	<div class="col-4">
+		[lista_natura]
+	</div>
+	<div class="col-6">
+	</div>
+</div>
+<div class="click row grey">
+	<div class="col-8">
+	</div>
+	<div onclick="[del]" class="col-2">
+		<h3>Annulla <i class="fa fa-undo fa-lg"></i></h3>
+	</div>
+	<div onclick="[go]" class="col-2">
+		<h3>Procedi <i class="fa fa-arrow-circle-right fa-lg"></i></h3>
+	</div>
+</div>
+
+<script>
+
+$('#data_dett').datepicker({maxDate: new Date('[data_a]'),minDate: new Date('[data_da]'),});
+
+update_wallet('wall_id_trasf','[id_trasf]');
+update_wallet('wall_id_dett','[id_dett]');
+
+</script>

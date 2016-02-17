@@ -1,0 +1,342 @@
+<h1>Modifica Transazione di Tipo [voce_menu]</h1>
+<input type="hidden" id="id_dett"  name="id_dett" value="[id_dett]">
+<input type="hidden" name="id_natura" value="[id_natura]">
+<input type="hidden" id="soglia" name="soglia" value="[soglia]">
+<input type="hidden" id="qta_soglia" name="qta_soglia" value="[qta_soglia]">
+<input type="hidden" id="limite_spesa" name="limite_spesa" value="[limite_spesa]">
+<input type="hidden" id="id_hotel" name="id_hotel" value="[id_hotel]">
+<input type="hidden" id="id_hotel_padre" name="id_hotel_padre" value="[id_hotel_padre]">
+<!--input type="hidden" id="dt_fatt" name="dt_fatt" value="[dt_fatt]">
+<input type="hidden" id="nro_fatt" name="nro_fatt" value="[nro_fatt]">
+<input type="hidden" id="mastro_ft" name="mastro_ft" value="[mastro_ft]">
+<input type="hidden" id="partit_ft" name="partit_ft" value="[partit_ft]"-->
+<div class="row almond">
+	<div class="titles col-12">
+		<h3>[data]</h3>
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Luogo</h3>
+	</div>
+	<div class="col-4">
+		<select name="luogo" id="luogo">
+				<option id="luogo_dett_id" selected value="">Luogo di Riferimento</option>
+				[select_luogo]
+		</select>
+		<button onclick="[detthotel]"> Calcola Dettagli Hotel <i class="fa fa-bed fa-lg"></i></button>
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Importo</h3>
+	</div>
+	<div class="col-4">
+		<input class="numeric" name="importo" value="[importo]" type="text" id="importo">
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Chiesto a Rimborso</h3>
+	</div>
+	<div class="col-4">
+		<input class="numeric" name="importo_richiesto" value="[importo_richiesto]" type="text" id="importo_richiesto">
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Giustificativo</h3>
+	</div>
+	<div class="col-4">
+		<select onchange="toggle_fattura()" name="tipo_giustificativo" id="tipo_giustificativo">
+				[tipo_giustificativo_select]
+		</select>
+		<button id="fattura_button" onclick="[dett_fattura]">
+			<i class="fa fa-file-text fa-lg"></i> Dettaglio Fattura 
+		</button>
+	</div>
+	<div class="col-5">
+	<h3>Manca Giustificativo <input type="checkbox" [no_giustificativo_checked] name="no_giustificativo"></h3>
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Pagato con</h3>
+	</div>
+	<div class="col-4">
+		<select name="id_pagamento" id="id_pagamento">
+			[id_pagamento_select]
+		</select>
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3>Note</h3>
+	</div>
+	<div class="col-4">
+		<input class="key_prevented" name="note" value="[note]" type="text" id="note">
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3><i class="fa fa-paperclip fa-2x"></i> Allegato Giustificativo</h3>
+	</div>
+	<div class="col-4">
+		<input name="giustificativo" value="[giustificativo]" type="text" id="giustificativo">
+		<form class="file-form" method="post" enctype="multipart/form-data">
+			Carica Mail:
+			<input class="file-select" type="file" name="files[]" id="fileToUpload0" multiple>
+			<input id="upload-button0" type="submit" value="Carica" name="submit">
+		</form>
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3><i class="fa fa-paperclip fa-2x"></i> Allega Approvazione</h3>
+	</div>
+	<div class="col-4">
+		<input name="pre_approvazione" value="[pre_approvazione]" type="text" id="pre_approvazione">
+		<form class="file-form" method="post" enctype="multipart/form-data">
+			Carica Mail:
+			<input class="file-select" type="file" name="files[]" id="fileToUpload1" multiple>
+			<input id="upload-button1" type="submit" value="Carica" name="submit">
+		</form>
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="row grey">
+	<div class="col-3">
+		<h3><i class="fa fa-paperclip fa-2x"></i> Approvazione Extra</h3>
+	</div>
+	<div class="col-4">
+		<input name="approvazione_sforo" value="[approvazione_sforo]" type="text" id="approvazione_sforo">
+		<form class="file-form" method="post" enctype="multipart/form-data">
+			Carica Mail:
+			<input class="file-select" type="file" name="files[]" id="fileToUpload2" multiple>
+			<input id="upload-button2" type="submit" value="Carica" name="submit">
+		</form>
+	</div>
+	<div class="col-5">
+	</div>
+</div>
+<div class="click row grey">
+	<div class="col-6">
+	</div>
+	<div onclick="[cancel]" class="col-2">
+		<h3>Annulla <i class="fa fa-arrow-circle-left fa-lg"></i></h3>
+	</div>
+	<div onclick="[del_hotel]" class="col-2">
+		<h3>Elimina <i class="fa fa-trash fa-lg"></i></h3>
+	</div>
+	<div onclick="[go_hotel]" class="col-2">
+		<h3>Procedi <i class="fa fa-arrow-circle-right fa-lg"></i></h3>
+	</div>
+</div>
+
+<script>
+function toggle_fattura(){
+var tipo_giustificativo = $('#tipo_giustificativo').val();
+if (tipo_giustificativo==1){
+	$('#fattura_button').show();
+}else{
+	
+	$('#fattura_button').hide();
+}
+
+}
+update_wallet('wall_id_dett','[id_dett]');
+key_prevent("key_prevented");
+number_only();
+var form = [];
+var fileSelect = [];
+var uploadButton = [];
+// questo for scrive il codice javascript per gestire l'upload ajax dei tre form
+
+form[0] = document.getElementsByClassName("file-form")[0];
+console.log(form[0]);
+fileSelect[0] = document.getElementsByClassName("file-select")[0];
+console.log(fileSelect[0]);
+uploadButton[0] = $("#upload-button0");
+uploadButton[0].onclick = function(event){
+	event.preventDefault();
+}
+form[0].onsubmit = function (event) {
+	event.preventDefault();
+	// Update button text.
+	uploadButton[0].val("Caricamento...");
+	// Get the selected files from the input.
+	var files = fileSelect[0].files;
+	// Create a new FormData object.
+	var formData = new FormData();
+	// Loop through each of the selected files.
+	for (var i = 0; i < files.length; i++) {
+	var file = files[i];
+	
+	// Check the file type.
+	//if (!file.type.match(\'image.*\')) {
+	//	continue;
+	//}
+	
+	// Add the file to the request.
+	var final_filename="[login_utente]_all0_[id_trasf]_[id_dett]_"+file.name;
+	formData.append("files[]", file, final_filename);
+	$("#giustificativo").val(final_filename);
+	}
+	// Files
+	formData.append(name, file);
+	
+	// Blobs
+	//formData.append(name, blob, filename);
+	
+	 //Strings
+	//formData.append(name, value, filename);    
+	// Set up the request.
+	var xhr = new XMLHttpRequest();
+	
+	// Open the connection.
+	xhr.open("POST", "/upload/upload4.php", true);
+	// Set up a handler for when the request finishes.
+	xhr.onload = function () {
+		//alert("open");
+	if (xhr.status === 200) {
+		//alert("File Caricati");
+		// File(s) uploaded.
+		uploadButton[0].val("File Caricato!");
+	} else {
+		alert("Errore, contattare il CED!");
+	}
+	};
+	// Send the Data.
+	xhr.send(formData);
+}
+
+form[1] = document.getElementsByClassName("file-form")[1];
+console.log(form[1]);
+fileSelect[1] = document.getElementsByClassName("file-select")[1];
+console.log(fileSelect[1]);
+uploadButton[1] = $("#upload-button1");
+uploadButton[1].onclick = function(event){
+	event.preventDefault();
+}
+form[1].onsubmit = function (event) {
+	event.preventDefault();
+	// Update button text.
+	uploadButton[1].val("Caricamento...");
+	// Get the selected files from the input.
+	var files = fileSelect[1].files;
+	// Create a new FormData object.
+	var formData = new FormData();
+	// Loop through each of the selected files.
+	for (var i = 0; i < files.length; i++) {
+	var file = files[i];
+	
+	// Check the file type.
+	//if (!file.type.match(\'image.*\')) {
+	//	continue;
+	//}
+	
+	// Add the file to the request.
+	var final_filename="[login_utente]_all1_[id_trasf]_[id_dett]_"+file.name;
+	formData.append("files[]", file, final_filename);
+	$("#pre_approvazione").val(final_filename);
+	}
+	// Files
+	formData.append(name, file);
+	
+	// Blobs
+	//formData.append(name, blob, filename);
+	
+	// Strings
+	//formData.append(name, value, filename);    
+	// Set up the request.
+	var xhr = new XMLHttpRequest();
+	
+	// Open the connection.
+	xhr.open("POST", "/upload/upload4.php", true);
+	// Set up a handler for when the request finishes.
+	xhr.onload = function () {
+		//alert("open");
+	if (xhr.status === 200) {
+		//alert("File Caricati");
+		// File(s) uploaded.
+		uploadButton[1].val("File Caricato!");
+	} else {
+		alert("Errore, contattare il CED!");
+	}
+	};
+	// Send the Data.
+	xhr.send(formData);
+}
+
+
+form[2] = document.getElementsByClassName("file-form")[2];
+console.log(form[2]);
+fileSelect[2] = document.getElementsByClassName("file-select")[2];
+console.log(fileSelect[2]);
+uploadButton[2] = $("#upload-button2");
+uploadButton[2].onclick = function(event){
+	event.preventDefault();
+}
+form[2].onsubmit = function (event) {
+	event.preventDefault();
+	// Update button text.
+	uploadButton[2].val("Caricamento...");
+	// Get the selected files from the input.
+	var files = fileSelect[2].files;
+	// Create a new FormData object.
+	var formData = new FormData();
+	// Loop through each of the selected files.
+	for (var i = 0; i < files.length; i++) {
+	var file = files[i];
+	
+	// Check the file type.
+	//if (!file.type.match(\'image.*\')) {
+	//	continue;
+	//}
+	
+	// Add the file to the request.
+	var final_filename="[login_utente]_all2_[id_trasf]_[id_dett]_"+file.name;
+	formData.append("files[]", file, final_filename);
+	$("#approvazione_sforo").val(final_filename);
+	}
+	// Files
+	formData.append(name, file);
+	
+	// Blobs
+	//formData.append(name, blob, filename);
+	
+	// Strings
+	//formData.append(name, value, filename);    
+	// Set up the request.
+	var xhr = new XMLHttpRequest();
+	
+	// Open the connection.
+	xhr.open("POST", "/upload/upload4.php", true);
+	// Set up a handler for when the request finishes.
+	xhr.onload = function () {
+		//alert("open");
+	if (xhr.status === 200) {
+		//alert("File Caricati");
+		// File(s) uploaded.
+		uploadButton[2].val("File Caricato!");
+	} else {
+		alert("Errore, contattare il CED!");
+	}
+	};
+	// Send the Data.
+	xhr.send(formData);
+}
+</script>

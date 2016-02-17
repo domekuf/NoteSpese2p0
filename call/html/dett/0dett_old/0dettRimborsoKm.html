@@ -1,0 +1,87 @@
+<div class="row almond transazioni" id="id_dett[id_dett]">
+	<input type="hidden" name="id_dett" value="[id_dett]"/>
+	<input type="hidden" name="id_trasf" value="[id_trasf]"/>
+	<input type="hidden" name="rs_usr" value="[rs_usr]"/>
+	<input type="hidden" name="id_natura" value="[id_natura]"/>
+	<input type="hidden" name="login_utente" value="[login_utente]"/>
+	<div class="col-1">
+		<h3><icon class="trans-icon"><i class="fa fa-[icon_menu] fa-lg"></i></icon></h3>
+	</div>
+	<div class="col-1">
+		<h3>[data]</h3>
+	</div>
+	<div class="col-1">
+		<div class="container">
+			<div class="header">
+				<h3><i class="fa fa-expand fa-lg"></i> Espandi</h3>
+			</div>
+			<div class="content">
+				<ul class="trans">
+					[lista_tappe]
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-1">
+		<div class="container">
+			<div class="header">
+				<h3><i class="fa fa-expand fa-lg"></i> Espandi</h3>
+			</div>
+			<div class="content">
+				<ul class="trans">
+					<li><strong>Natura</strong>: [voce_menu] 	</li>
+					<li><strong>Descrizione</strong>: [descrizione]	</li>
+					<li><strong>Mastro-Partitario</strong>:	[mastro]-[partitario]	</li>
+					<li><strong>Pagato con</strong>: [pagamento_menu]	</li>
+					<li><strong>Giustificativo</strong>: [giustificativo_menu]	</li>
+					<li><strong>Note</strong>: [note]</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-1">
+		<div class="container">
+			<div class="header">
+				<h3><i class="fa fa-expand fa-lg"></i> Espandi</h3>
+			</div>
+			<div class="content">
+				<ul class="trans">
+					<li><strong>Giustificativo</strong>: <a style="display:[giustificativo_display]" href="[allpath][giustificativo]">Scarica</a> </li>
+					<li><strong>Approvazione</strong>: <a style="display:[pre_approvazione_display]" href="[allpath][pre_approvazione]">Scarica</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-1">
+		<div class="container">
+			<div class="header">
+				<h3><i class="fa fa-expand fa-lg"></i> Espandi</h3>
+			</div>
+			<div class="content">
+				<ul class="trans">
+					<li><strong>Importo</strong>: [importo] &euro;	</li>
+					<li><strong>Chiesto a Rimborso</strong>: [importo_richiesto] &euro;	</li>
+					<li><strong>Overbudget</strong>: <span id="ob2_[id_dett]">0.00</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-1">
+		<h3>[importo_richiesto]</h3>
+	</div>
+	<div class="col-1">
+		<h3 id="ob1_[id_dett]" class="over">0.00</h3>
+	</div>
+	<div class="col-1">
+		<h3><a style="display:[approvazione_sforo_display]" href="[allpath][approvazione_sforo]">Scarica</a></h3>
+	</div>
+	<div class="col-2">
+				<input id="importo_approvato_[id_dett]" name="importo_approvato_[id_dett]" type = "text" class="numeric" value="[importo_approvato]"/>
+	</div>
+	
+	<div class="col-1">
+	<select name="cod_iva" id="sel_iva">
+		[select_iva]
+	</select>
+	</div>
+</div>

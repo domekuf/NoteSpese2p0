@@ -1,0 +1,37 @@
+
+<div class="click titles row darkgreen" onclick="[add]" >
+	<div class="col-6">
+		
+	</div>
+	<div class="col-1">
+		<ul class="trans">
+			<li><strong>Totale</strong>: [totale] &euro;	</li>
+		</ul>
+	</div>
+	<div class="col-1">
+		<ul class="trans">
+			<li><strong>Overbudget</strong>: [totale_ob] &euro;	</li>
+		</ul>
+	</div>
+	<div class="col-4">
+		
+	</div>
+</div>
+<script>
+		$(".header").click(function () {
+
+		$header = $(this);
+		//getting the next element
+		$content = $header.next();
+		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+		$content.slideToggle(500, function () {
+			//execute this after slideToggle is done
+			//change text of header based on visibility of content div
+			$header.html(function () {
+				//change text based on condition
+				return $content.is(":visible") ? "<h3><i class=\'fa fa-compress fa-lg\'></i> Chiudi</h3>" : "<h3><i class=\'fa fa-expand fa-lg\'></i> Espandi</h3>";
+			});
+		});
+
+		});
+</script>

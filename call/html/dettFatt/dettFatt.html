@@ -1,0 +1,75 @@
+<div id="[id_container]">
+<div style="display:none">
+<input type="text" name="id_dett" id="win_id_dett" value="[id_dett]"/>
+<input type="text" name="Q" id="win_Q" value="[save_call]"/>
+</div>
+<div class="row almond">
+	<div class="col-12">
+		<h2>Dettagli Fattura</h2>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Data</h3>
+	</div>
+	<div class="col-6">
+		<input name="dt_fatt" value="[dt_fatt]" type="text" id="win_dt_fatt"/>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Numero Fattura</h3>
+	</div>
+	<div class="col-6">
+		<input name="nro_fatt" value="[nro_fatt]" type="text" id="win_nro_fatt"/>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Fornitore</h3>
+	</div>
+	<div class="col-6">
+		<select oninput="aggiornaMastroPartitario()" name="fornitore" id="win_fornitore">
+			[fornitore_select]
+		</select>
+	</div>
+	<div class="col-3">
+		<input name="fornitore_filtro" value="" placeholder="Filtra Fornitori" type="text" id="fornitore_filtro"/>
+	</div>
+</div>
+<div class="row bone">
+	<div class="col-3">
+		<h3>Mastro-Partitario</h3>
+	</div>
+	<div class="col-6">
+		<input name="mastro_ft" value="[mastro_ft]" type="text" id="win_mastro_ft"/>-
+		<input name="partit_ft" value="[partit_ft]" type="text" id="win_partit_ft"/>
+	</div>
+	<div class="col-3">
+		
+		<button onclick="aggiornaMastroPartitario()"><i class="fa fa-refresh"></i></button>
+	</div>
+</div>
+<div class="row darkgreen">
+	<div class="col-3">
+	</div>
+	<div class="col-4">
+	</div>
+	<div class="col-5">
+		<button onclick="checkBeforeSave()"><i class="fa fa-save fa-lg"></i> Salva</button>
+	</div>
+</div>
+</div>
+<script>
+	function aggiornaMastroPartitario(){
+		var mastropartitario=$('#win_fornitore').val();
+		var mastro = (mastropartitario.split('-')[0]).trim();
+		var partitario = (mastropartitario.split('-')[1]).trim();
+		$('#win_mastro_ft').val(mastro);
+		$('#win_partit_ft').val(partitario);
+	}
+	function checkBeforeSave(){
+		[save];
+	}
+	$('#win_dt_fatt').datepicker();
+</script>

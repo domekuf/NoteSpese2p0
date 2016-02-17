@@ -1,0 +1,57 @@
+<h1>Gestione Eventi</h1>
+<div class="row">
+			[eventi]
+</div>
+<div class="row">
+	<div class="col-12 almond">
+		<input type="text" name="nuovo_gruppo_desc"/><button onclick="pi.requestQ('container','WinEventoAdd')"><i class="fa fa-plus"></i> Aggiungi Evento</button>
+	</div>
+</div>
+<input type="hidden" value="" name="login_utente" id="usr_selected"/>
+<input type="hidden" value="" name="usr_to_remove" id="usr_to_remove"/>
+<input type="hidden" value="" name="usr_to_edit" id="usr_to_edit"/>
+<input type="hidden" value="" name="usr_to_edit_desc" id="usr_to_edit_desc"/>
+<input type="hidden" value="" name="grp_to_edit" id="grp_to_edit"/>
+<input type="hidden" value="" name="grp_to_edit_desc" id="grp_to_edit_desc"/>
+<input type="hidden" value="" name="id_gruppo" id="group"/>
+<!--input type="button" value="Launch Installer" onclick="window.open('file:///pssky/ESFW/7.0/CLIENT/bin/COW201.exe')" /-->
+<script>
+var usr_selected='';
+function usr_mousedown(user){
+	usr_selected=user.attr('id');
+	$('#usr_selected').val(usr_selected);
+	//console.log(usr_selected);
+	//pi.requestQ('asd','asd');
+}
+function usr_mouseup(user){
+	usr_selected='';
+	//console.log(usr_selected);
+}
+
+function grp_mouseup(group){
+	//console.log(group);
+	$('#group').val(group);
+	if(usr_selected!=''){
+		pi.requestQ('container','GruppiInsert');
+	}
+}
+$('.draggable').draggable({ 
+containment: "#container"
+,scroll: true
+});
+function del_group(usr_to_remove){
+	$('#usr_to_remove').val(usr_to_remove);
+	pi.requestQ('container','GruppiRemove');
+}
+function dettagli_utente(usr_to_edit,usr_to_edit_desc){
+	
+	$('#usr_to_edit').val(usr_to_edit);
+	$('#usr_to_edit_desc').val(usr_to_edit_desc);
+	pi.requestQ('container','WinUtenteEdit');
+}
+function dettagli_gruppo(id_gruppo,gruppo_desc){
+	$('#grp_to_edit').val(id_gruppo);
+	$('#grp_to_edit_desc').val(gruppo_desc);
+	pi.requestQ('container','WinGruppoEdit');
+}
+</script>

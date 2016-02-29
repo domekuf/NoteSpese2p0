@@ -3,8 +3,6 @@ $login_utente = $_POST['login_utente'];
 $id_trasf = $_POST['id_trasf'];
 $desc_trasf = $_POST['desc_trasf'];
 $rs_usr=$_POST['rs_usr'];
-$totale=$_POST['totale'];
-$totale_ob=$_POST['totale_ob'];
 $htmlpath= module_path().'html/dett/';
 $qrypath= module_path().'qry/dett/';
 $jspath= module_path().'js/dett/';
@@ -20,13 +18,12 @@ $f=fopen($p,'r');
 $qry2=fread($f,filesize($p));
 
 $s_tmp_0=carica_file($htmlpath.$rs_usr.'dett_tmp.html');
+$s_tmp_0=str_replace('[desc_trasf]',$desc_trasf,$s_tmp_0);
 
-$s=	str_replace
-	('[luogo_placeholder]'
-	,'<h3>[luogo]</h3>'
-	,str_replace
-	('[class_color]'
-	,'almond'
+
+
+$s  =str_replace('[luogo_placeholder]','<h3>[luogo]</h3>'
+	,str_replace('[class_color]','almond'
 	,$s_tmp_0));
 
 $p=$jspath.$rs_usr.'dett.js';
@@ -64,10 +61,26 @@ $intestazione=str_replace('[desc_trasf]',$desc_trasf,$intestazione);
 $p=$htmlpath.$rs_usr.'new.html';
 $f=fopen($p,'r');
 $new=fread($f,filesize($p));
+
+
+//recupero i totali dal db e non più dal wallet
+$qry_totali=carica_file($qrypath.'totali.sql');
+$qry_totali=str_replace('[id_trasf]',$id_trasf,$qry_totali);
+$res_totali=$db->get_data($qry_totali);
+$totale='0.00';
+$totale_ob='0.00';
+foreach($res_totali as $r_t){
+	$totale=$r_t['totale'];
+	$totale_ob=$r_t['totale_ob'];
+}
 $new=str_replace('[totale]',$totale,$new);
 $new=str_replace('[totale_ob]',$totale_ob,$new);
-$new=str_replace('[add]','pi.requestQ(\'wallet\',\'DettAdd\')',$new);
-
+$new=str_replace('[add]','pi.requestQ(\'new_dett\',\'DettAdd\')',$new);
+$new=str_replace('[login_utente]',$login_utente,$new);
+$new=str_replace('[id_trasf]',$id_trasf,$new);
+$new=str_replace('[desc_trasf]',$desc_trasf,$new);
+$new=str_replace('[id_dett]',$id_dett,$new);
+$new=str_replace('[rs_usr]',$rs_usr,$new);
 
 
 $results=$db->get_data($qry);
@@ -108,11 +121,23 @@ foreach($results as $v){
 	$s_tmp=str_replace('[dett_edit]','pi.requestQ(\'id_dett[id_dett]\',\'DettEdit\')',$s_tmp);
 	$s_tmp=str_replace('[rs_usr]',$rs_usr,$s_tmp);
 	$s_tmp=str_replace('[login_utente]',$login_utente,$s_tmp);
-	$s_tmp=str_replace('[allpath]',$allpath,$s_tmp);
+	$s_tmp=str_replace('[allpath]',$allpath,$s_tmp);	
+	$outer_select_iva=carica_file($htmlpath.$rs_usr.'outer_select_iva.html');
+	
+	if($v['tipo_giustificativo']==0){
+		$s_tmp=str_replace('[outer_select_iva]','',$s_tmp);
+	}else{
+		$s_tmp=str_replace('[outer_select_iva]',$outer_select_iva,$s_tmp);
+	}
+	
+
+	
+	
 	
 	foreach($res2 as $v2){
 		$nomecampo=trim(strtolower($v2['column_name']));
 		$s_tmp=str_replace('['.$nomecampo.']',$v[$nomecampo],$s_tmp);
+		
 		if($nomecampo=='giustificativo'){
 			if(strlen($v[$nomecampo])>5){
 				$s_tmp=str_replace('[giustificativo_display]','block',$s_tmp);
@@ -135,10 +160,23 @@ foreach($results as $v){
 			}
 		}
 	}
-	$s_tmp=str_replace
-	('[select_iva]'
-	,qry2sel(carica_file($qrypath.'iva.sql'),'cod_iva','cod_iva',$v['cod_iva'])
-	,$s_tmp);
+	
+	$s_tmp=str_replace('[select_iva]',qry2sel(carica_file($qrypath.'iva.sql'),'cod_iva','cod_iva',$v['cod_iva']),$s_tmp);
+	$importo_approvato_proposto='0.00';
+	if($v['importo_approvato']>0){
+		$s_tmp=str_replace('[class_approved_color]','approved-green',$s_tmp);
+		$s_tmp=str_replace('[importo_approvato_proposto]',$v['importo_approvato'],$s_tmp);
+	}else{
+		$s_tmp=str_replace('[class_approved_color]','',$s_tmp);
+		if($v['importo_richiesto']>$v['limite_spesa']){
+			$s_tmp=str_replace('[importo_approvato_proposto]',$v['limite_spesa'],$s_tmp);
+		}else{
+			$s_tmp=str_replace('[importo_approvato_proposto]',$v['importo_richiesto'],$s_tmp);
+		}
+	}
+	
+	
+	
 	$lista_tappe.=$s_tmp;
 }
 
@@ -167,74 +205,6 @@ foreach($res_subtotali as $v){
 $subtotali.=$subtotali_end;
 
 
-//$i=0;
-//$linea_finita=1;
-//
-//foreach($results as $v){
-//	$id_hotel=$v['id_hotel']==' --- '?0:$v['id_hotel'];
-//	$id_hotel_padre=$v['id_hotel_padre']==' --- '?0:$v['id_hotel_padre'];
-//if($i==0){$out.='<tr>';}
-//	$editable=$v['importo_approvato']<=0;
-//	$out.='
-//	<td class="trans '.($editable?($v['id_hotel']!=' --- ' || get_natura($v['id_natura'])=="Hotel")?'purple':'orange':'red').'"
-//	
-//	'.($editable?'
-//	onclick="trans_Edit('.$v['id_dett'].','.$id_hotel.','.$id_hotel_padre.')" 
-//	style="cursor:pointer"
-//	':'
-//	onclick="transAlert()" 
-//	style="cursor:not-allowed"
-//	').'
-//	>
-//	<table style="text-align:left"
-//	>
-//	<tbody>
-//	<tr><th colspan=2>'.$v['data'].'</th></tr>
-//	<tr><th colspan=2>'.$nature_id[$v['id_natura']]['voce_menu'].'</th></tr>
-//	<tr><th colspan=2></th></tr>
-//	<tr>
-//	<td>
-//	'.$v['importo_richiesto'].' &euro;
-//	</td>
-//	<td style="text-align:right">
-//	'
-//	//($v['importo_approvato']<=0?'<button class="edit icon"  style="cursor:pointer;"><div></div></button>':'')
-//	.'</td>
-//	</tr>
-//	</tbody>
-//	</table>
-//	</td>';
-//	//queste sono nella _commmon.php, utility per velocizzare html
-//$i++;
-//if($i==$n_colonne){$out.='</tr>';$i=0;$linea_finita=1;}else{$linea_finita=0;}
-//}
-//if($linea_finita){
-//	$out.='<tr>';
-//}
-//$out.='
-//	<td id="nuova_transazione" class="trans green">
-//	<table style="text-align:left">
-//	<tbody>
-//	<tr><th colspan=2>Nuova</th></tr>
-//	<tr><th colspan=2>Transazione</th></tr>
-//	<tr><th colspan=2></th></tr>
-//	<tr>
-//	<td><button class="plus icon" onclick="pi.requestQ(\'wallet\',\'Trans_Add\')" style="cursor:pointer;"><div></div></button>
-//	</td>
-//	<td style="text-align:right"></td>
-//	</tr>
-//	</tbody>
-//	</table>
-//	</td>
-//    </tr>';
-//$out.='</tbody>
-//</table>
-//<script>
-//update_wallet(\'wall_id_trasf\','.$id_trasf.');
-//// update_wallet(\'wall_id_trans\',0);
-//</script>
-//';
-//$pr->add_html('container3',$div_dati_hid);
 $pr->add_html('menu_1',$subtotali);
 $pr->add_html('container',$lista_dettagli)->response();
 //$pr->add_win(600,0,true,'Inserisci nuova trasferta',$out)->response();

@@ -1,3 +1,4 @@
+<!--Percorso : \\portal1\shares\modules\CED\NoteSpese2p0\call\html\dettFatt\dettFatt.html-->
 <div id="[id_container]">
 <div style="display:none">
 <input type="text" name="id_dett" id="win_id_dett" value="[id_dett]"/>
@@ -34,7 +35,7 @@
 		</select>
 	</div>
 	<div class="col-3">
-		<input name="fornitore_filtro" value="" placeholder="Filtra Fornitori" type="text" id="fornitore_filtro"/>
+		<input name="fornitore_filtro" value="" placeholder="Filtra Fornitori" type="text" id="fornitore_filtro" oninput="filtraTesto()"/>
 	</div>
 </div>
 <div class="row bone">
@@ -72,4 +73,19 @@
 		[save];
 	}
 	$('#win_dt_fatt').datepicker();
+	
+	function filtraTesto(){
+		var filtro=$('#fornitore_filtro').val();
+		reg=new RegExp(filtro, "gi");
+		$(".select-fornitori").css('display','none'); //li nascondo tutti
+		$(".select-fornitori").css('visibility','hidden'); //li nascondo tutti
+		fornitori=$(".select-fornitori");
+		for (i=0;i<fornitori.length;i++){//li ciclo per mostrarne alcuni
+			nome=$(fornitori[i]).attr('id_filtro') 
+			if(nome.match(reg)!=null){
+			$(fornitori[i]).css('display','initial');
+			$(fornitori[i]).css('visibility','visible');
+			}
+		}
+	}
 </script>

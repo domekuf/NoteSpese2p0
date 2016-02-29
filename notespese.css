@@ -90,4 +90,18 @@
 		.content{
 			text-align:left!important;
 		}
+		.approved-green{
+			background-color:rgba(31, 166, 122, 0.38)!important;
+		}
+		
+		.to-save{
+			background-color:rgb(125, 185, 232)!important;
+		}
+		
+		.click-to-save{
+			cursor:pointer;
+		}
+		.click-to-save:hover{
+			color:rgb(125, 185, 232)!important;
+		}
 		

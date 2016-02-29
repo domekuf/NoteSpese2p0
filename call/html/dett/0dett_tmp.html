@@ -1,12 +1,13 @@
-<!--\\portal1\shares\modules\CED\NoteSpese2p0\call\html\dett\0dett_tmp.html-->
-<div class="row [class_color] transazioni" id="id_dett[id_dett]">
+<!-- Percorso : \\portal1\shares\modules\CED\NoteSpese2p0\call\html\dett\0dett_tmp.html-->
+<div class="row [class_color] [class_approved_color] transazioni" id="id_dett[id_dett]">
 	<input type="hidden" name="id_dett" value="[id_dett]"/>
 	<input type="hidden" name="id_dett_arr[[id_dett]]" value="[id_dett]"/>
 	<input type="hidden" name="id_trasf" value="[id_trasf]"/>
 	<input type="hidden" name="rs_usr" value="[rs_usr]"/>
 	<input type="hidden" name="id_natura" value="[id_natura]"/>
 	<input type="hidden" name="login_utente" value="[login_utente]"/>
-	<div class="col-1">
+	<input type="hidden" name="desc_trasf" value="[desc_trasf]"/>
+	<div class="col-1 click"  onclick="[dett_edit]">
 		<h3><icon class="trans-icon"><i class="fa fa-[icon_menu] fa-lg"></i> <i class="fa fa-[icon_pagamento] fa-lg"></i></icon></h3>
 	</div>
 	<div class="col-1">
@@ -71,13 +72,14 @@
 		<h3><a style="display:[approvazione_sforo_display]" href="[allpath][approvazione_sforo]">Scarica</a></h3>
 	</div>
 	<div class="col-2">
-				<input id="importo_approvato_[id_dett]" name="importo_approvato[[id_dett]]" type = "text" class="numeric" value="[limite_spesa]"/>
-				<span>Approvato:[importo_approvato]</span>
+				<input id="importo_approvato_[id_dett]" name="importo_approvato[[id_dett]]" type = "text" class="numeric" value="[importo_approvato_proposto]"/>
+				<input id="importo_to_save_[id_dett]" name="importo_to_save[[id_dett]]" type="hidden" value="0"/>
+				<i class="click-to-save fa fa-thumbs-up fa-2x" onclick="toggle_id_save('[id_dett]')"></i>
+				<!-- toggle_id_save definita in \\portal1\shares\modules\CED\NoteSpese2p0\call\js\dett\update_wallet.js -->
+				
 	</div>
 	
 	<div class="col-1">
-	<select name="cod_iva[[id_dett]]" id="sel_iva_[id_dett]">
-		[select_iva]
-	</select>
+	[outer_select_iva]
 	</div>
 </div>

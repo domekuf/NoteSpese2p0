@@ -66,7 +66,7 @@
 	$out='
 	<select name="id_natura" id="sel_natura" oninput="natura_select($(this).val(),$(\'wall_id_trans\').val())">
 	<option value="-1">-- seleziona --</option>';
-	$results=get_data_qry('select * from psofa.pso_rs_id_natura where nascosta <> \'Y\'');
+	$results=get_data_qry('select * from psofa.pso_rs_id_natura where nascosta <> \'Y\' order by voce_menu');
 	foreach($results as $n){
 		$nature_id[$n['id_natura']]=$n['voce_menu'];
 		$out.='<option '. ($sel==$n['id_natura']?'selected':'').' value="'.$n['id_natura'].'">'.$n['voce_menu'].'</option>';
@@ -144,7 +144,7 @@
 	}
 	
 	function genera_nature_id(){
-	$results=get_data_qry('select * from psofa.pso_rs_id_natura a join psofa.pso_rs_id_natura_interf b on a.id_natura=b.id_natura where a.nascosta<>\'Y\'');
+	$results=get_data_qry('select * from psofa.pso_rs_id_natura a join psofa.pso_rs_id_natura_interf b on a.id_natura=b.id_natura where a.nascosta<>\'Y\'  order by voce_menu');
 	foreach($results as $n){
 		$nature_id[$n['id_natura']]['id_natura']=$n['id_natura'];
 		$nature_id[$n['id_natura']]['voce_menu']=$n['voce_menu'];
@@ -307,6 +307,32 @@
 				$opt=str_replace('[selected]','',$opt);
 			}
 			$select.=str_replace('[voce_menu]',$v[$voce_menu],str_replace('[value]',$v[$value],$opt));
+		}
+		return $select;
+		
+	}
+	
+	function qry2sel_filtrabile($qry,$voce_menu,$value,$selected_value,$class,$colonna_id){
+		//questa funzione genera un menu select a partire da una query,
+		//usa la variablie $voce_menu per prendere il nome della colonna da mettere come voce menu
+		//e la variablie $value pes prendere il nome della colonna da mettere come value
+		//selected_value, lo si può usare per mettere un valore preselezionato
+		global $db, $qrypath_, $htmlpath_;
+		$opt_tmp=carica_file($htmlpath_.'select/option_filtrabile.html');
+		$res=$db->get_data($qry);
+		$select='';
+		foreach($res as $v){
+			$opt=$opt_tmp;
+			if (trim(strtolower($v[$value]))==trim(strtolower($selected_value))){
+				$opt=str_replace('[selected]','selected',$opt);
+			}else{
+				$opt=str_replace('[selected]','',$opt);
+			}
+			$select.=str_replace('[voce_menu]',$v[$voce_menu]
+					,str_replace('[value]',$v[$value]
+					,str_replace('[class]',$class
+					,str_replace('[id_filtro]',$v[$colonna_id]
+					,$opt))));
 		}
 		return $select;
 		

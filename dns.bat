@@ -1,0 +1,1 @@
+netsh interface ipv4 add dnsserver "Connessione alla rete locale (LAN) 2" 172.16.3.27 add dnsserver "Connessione alla rete locale (LAN) 2" 172.16.3.4 index=2

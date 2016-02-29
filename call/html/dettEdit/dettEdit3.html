@@ -1,11 +1,15 @@
 <h1>Modifica Transazione di Tipo [voce_menu]</h1>
-<input type="hidden" id="id_dett"  name="id_dett" value="[id_dett]">
-<input type="hidden" name="id_natura" value="[id_natura]">
-<input type="hidden" id="soglia" name="soglia" value="[soglia]">
-<input type="hidden" id="qta_soglia" name="qta_soglia" value="[qta_soglia]">
-<input type="hidden" id="limite_spesa" name="limite_spesa" value="[limite_spesa]">
-<input type="hidden" id="id_hotel" name="id_hotel" value="[id_hotel]">
-<input type="hidden" id="id_hotel_padre" name="id_hotel_padre" value="[id_hotel_padre]">
+<input type="text" id="id_dett"  name="id_dett" value="[id_dett]">
+<input type="text" name="id_natura" value="[id_natura]">
+<input type="text" id="soglia" name="soglia" value="[soglia]">
+<input type="text" id="qta_soglia" name="qta_soglia" value="[qta_soglia]">
+<input type="text" id="limite_spesa" name="limite_spesa" value="[limite_spesa]">
+<input type="text" id="id_hotel" name="id_hotel" value="[id_hotel]">
+<input type="text" id="id_hotel_padre" name="id_hotel_padre" value="[id_hotel_padre]">
+<input type="text" name="login_utente" value="[login_utente]">
+<input type="text" name="id_trasf" value="[id_trasf]">
+<input type="text" name="desc_trasf" value="[desc_trasf]">
+<input type="text" name="rs_usr" value="[rs_usr]">
 <!--input type="hidden" id="dt_fatt" name="dt_fatt" value="[dt_fatt]">
 <input type="hidden" id="nro_fatt" name="nro_fatt" value="[nro_fatt]">
 <input type="hidden" id="mastro_ft" name="mastro_ft" value="[mastro_ft]">
@@ -147,6 +151,7 @@
 </div>
 
 <script>
+pi.requestQLoaderOpen("wallet","WinDettHotel");
 function toggle_fattura(){
 var tipo_giustificativo = $('#tipo_giustificativo').val();
 if (tipo_giustificativo==1){

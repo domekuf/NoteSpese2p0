@@ -1,5 +1,5 @@
 select
-    psofa.anagrafico_conti_v.mastro||'-'||psofa.anagrafico_conti_v.partitario codice,
+    trim(psofa.anagrafico_conti_v.mastro)||'-'||trim(psofa.anagrafico_conti_v.partitario) codice,
     descrizione_1||' ('||partita_iva||')' descrizione
 from
     psofa.anagrafico_conti_v,

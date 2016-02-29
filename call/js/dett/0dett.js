@@ -1,5 +1,5 @@
 <script>
-append_id("wall_id_importi_approv",'[id_dett]');
+//append_id("wall_id_importi_approv",'[id_dett]');
 var soglia=[soglia];
 var importo_richiesto=[importo_richiesto];
 var limite_spesa=[limite_spesa];

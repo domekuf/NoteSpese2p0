@@ -2,6 +2,51 @@
 $id_trasf = $_POST['id_trasf'];
 $id_dett = $_POST['id_dett'];
 $rs_usr = $_POST['rs_usr'];
+/* numerare le tappe
+$qry_to_upd='
+select luogo, to_char(data,\'yyyymmdd\') data from psofa.pso_rs_dett_itin
+where 1=1
+order by data
+';
+
+$res_to_upd=$db->get_data($qry_to_upd);
+
+foreach($res_to_upd as $row){
+	$qry_upd="update psofa.pso_rs_dett_itin set id_tappa = psofa.pso_seq_rs_dett_itin.nextval where luogo='".$row['luogo']."' and data=to_date('".$row['data']."','yyyymmdd')";
+	$db->put_data($qry_upd);
+}*/
+
+$htmlpath= 	module_path().'html/dettItin/';
+$qrypath= 	module_path().'qry/dettItin/';
+$interface=carica_file($htmlpath.'dettItin.html');
+$interface=str_replace('[id_trasf]',$id_trasf,$interface);
+$interface=str_replace('[id_dett]',$id_dett,$interface);
+$interface=str_replace('[save]','pi.requestWinOpen(\'[id_container]\')',$interface);
+$interface=str_replace('[save_call]','DettItinTappaSave',$interface);
+$interface=str_replace('[id_container]','wincontainer',$interface);
+$tappa_tmp=carica_file($htmlpath.'tappa.html');
+$qry_dett_itin=carica_file($qrypath."dettItin.sql");
+$qry_lista_tappe_trasf=carica_file($qrypath."listaTappeTrasf.sql");
+$qry_lista_tappe_trasf=str_replace('[id_trasf]',$id_trasf,$qry_lista_tappe_trasf);
+$qry_dett_itin=str_replace('[id_trasf]',$id_trasf,$qry_dett_itin);
+$qry_dett_itin=str_replace('[id_dett]',$id_dett,$qry_dett_itin);
+$res=$db->get_data($qry_dett_itin);
+foreach($res as $tappa){
+	$select_negozi_p=qry2sel_filtrabile($qry_lista_tappe_trasf,'luogo','luogo',$tappa['luogo'],'select-negozi-'.$tappa['id_tappa'].'p','voce_menu');
+	$select_negozi_a=qry2sel_filtrabile($qry_lista_tappe_trasf,'luogo','luogo',$tappa['luogo'],'select-negozi-'.$tappa['id_tappa'].'a','voce_menu');
+	$lista_tappe.=
+	str_replace('[id_tappa]',$tappa['id_tappa'],
+	str_replace('[id_trasf]',$id_trasf,
+	str_replace('[id_dett]',$id_dett,
+	str_replace('[luogo]',$tappa['luogo'],
+	str_replace('[luogo_a]',$tappa['luogo_a'],
+	str_replace('[data]',$tappa['data'],
+	str_replace('[luogo_select_p]',$select_negozi_p,
+	str_replace('[luogo_select_a]',$select_negozi_a,
+	str_replace('[km]',$tappa['km'],
+	$tappa_tmp)))))))));
+}
+$interface=str_replace('[lista_tappe]',$lista_tappe,$interface);
 $i=0;
 $qry1='select count(*) as c from
 psofa.pso_rs_dett_itin
@@ -43,31 +88,6 @@ $out='
 			where
 				id_dett='.$id_dett.'
 				order by data_2';
-		$results2=$db->get_data($qry2);
-		foreach($results2 as $v2){
-		$id_tappa=$v2['id_tappa'];
-		$luogo=$v2['luogo'];
-		$data=$v2['data'];
-		$out.='
-			<tr id="tappa_id_'.$i.'">
-			<th>Luogo</th>
-			<td><input readonly class="key_prevented" onchange="tappa_edit('.$i.')" id="luogo_id_'.$i.'" name="luogo" type="text" value="'.$luogo.'" /></td>
-			<td>
-			<select id="sel_neg_trasf_itin_'.$i.'" onchange="Trasf_Itin_Load_Select('.$i.')"><option selected value="">Negozio</option>
-			'.genera_lista_negozi_trasferta($id_trasf).'
-			</select>
-			</td>
-			<th>Data</th>
-			<td><input onchange="tappa_edit('.$i.')"  id="data_id_'.$i.'" name="datatime" type="text" value="'.$data.'"/></td>
-			<script>configure('.$i.',\''.$luogo.'\',\''.$data.'\');</script>
-			<td>
-			<button onclick="tappa_del('.$i.')" style="cursor:pointer;" class="del icon">
-			<div></div>
-			</button>
-			</td>
-			</tr>';
-		$i++;
-		}
 		$out.='
 		</tbody>
 		
@@ -132,6 +152,8 @@ initMap();
 
 
 ';
-$pr->add_win(1000,0,true,'Gestisci Itinerario',$out)->response();
+
+$pr->add_script('pi.win.close()');
+$pr->add_win(1000,0,true,'Gestisci Itinerario',$interface)->response(); //.serialize($res_sf) risultato della store!
 //$pr->add_win(600,0,true,'Inserisci nuova trasferta',$out)->add_script(" $('#focusme').focus(); ")->response();
 ?>

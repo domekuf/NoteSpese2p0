@@ -113,40 +113,38 @@ function sistemaTappe(data_str,luogo_str){
 }
 	  
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-	$("#win_auto_save").css("display","block");
-	data_str=$("#data_str").val();
-	luogo_str=$("#luogo_str").val();
-	data_str=data_str.replace(/:+/g,':');
-	luogo_str=luogo_str.replace(/:+/g,':');
-	if(data_str == ':' || luogo_str == ':'){
-		//todo
-		alert('Tappe Non Inserite Correttamente (verificare le date) ');
-	}else{
-	luoghi=sistemaTappe(data_str,luogo_str);
-  directionsService.route({
-    origin: luoghi[0],//document.getElementById('start').value,
-	waypoints: waypts,
-    destination: luoghi[luoghi.length-1],//document.getElementById('end').value,
-    travelMode: google.maps.TravelMode.DRIVING
-  }, function(response, status) {
-    if (status === google.maps.DirectionsStatus.OK) {
+	
+	waypts 	= 	[];
+	kms		=	[];
+	var luogo=$(".luogo");
+	var luogo_a=$(".luogo_a");
+	console.log($(".luogo"));
+	for(i=0;i<luogo.length-1;i++){
+	waypts.push({
+		location: luogo_a[i].value,
+		stopover: true
+	});
+	}
+	directionsService.route({
+		origin: luogo[0].value,//document.getElementById('start').value,
+		waypoints: waypts,
+		destination: luogo_a[luogo_a.length-1].value,//document.getElementById('end').value,
+		travelMode: google.maps.TravelMode.DRIVING
+	}, function(response, status) {
+	if (status === google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
-	  console.log('response');
-	  kms=[];
 	  total=0;
 	  for(i=0;i<response.routes[0].legs.length;i++){
+		console.log(response.routes[0].legs[i].distance.value/1000);
 		kms[i]=response.routes[0].legs[i].distance.value/1000;  
 		total += kms[i];
+		$('.km')[i].value=kms[i];
 	  }
-	  $("#tot_km").val(total);
-	  console.log(kms);
-	  //$("#kms_str").val(kms.join(':'))
-	  $("#kms_str").val(total);
     } else {
       window.alert('Directions request failed due to ' + status);
     }
-  });
-	}
+	});
+	console.log(kms);
 }
 
 

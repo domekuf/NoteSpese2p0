@@ -1,0 +1,103 @@
+<!--Percorso : \\portal1\shares\modules\CED\NoteSpese2p0\call\html\dettItin\trasfItin.html-->
+<div id="[id_container]">
+<div style="display:none">
+	Q: <input type = "text" name="Q" value="[save_call]">
+	IdTrasf: <input type = "text" name="id_trasf" value="[id_trasf]">
+	IdTrasf: <input type = "text" name="id_dett" value="[id_dett]">
+</div>
+<div style="
+    position: absolute;
+	right:0px;
+    z-index: 1;
+    opacity: 0.9;" class="col-8 grey">
+	<div class="col-12 np-col">
+		<div class="col-5 np-col">
+			<h3>Partenza</h3>
+		</div>
+		<div class="col-5 np-col">
+			<h3>Arrivo</h3>
+		</div>
+		<div class="col-1 np-col">
+			<h3>Km</h3>
+		</div>
+		<div class="col-1 np-col">
+			<h3><i class="fa fa-trash fa-lg"></i></h3>
+		</div>
+		<div id="lista_cont">
+		[lista_tappe]
+		</div>
+		
+		
+		<div class="col-10 np-col">
+			<button onclick="add_tappa()" class="click"><i class="fa fa-plus"></i> Aggiungi Tappa</button>
+			<button id="calc" class="click"><i class="fa fa-refresh"></i> Calcola Km</button>
+			<button onclick="checkBeforeSave()" class="click"><i class="fa fa-save"></i> Salva</button>
+		</div>
+		<div class="col-1 np-col"><input type="text" id="tot_km" class="number-width"></input>
+		</div>
+		<div class="col-1 np-col">
+		</div>
+
+	</div>
+</div>
+
+<div class="col-12" style="height:550px" id="map">
+</div>
+
+<script>
+	function aggiornaLuogo(id_tappa,pa){
+		var luogo=$('.luogo');
+		var luogo_a=$('.luogo_a');
+		var luogo_scelto=$('#id-sel-negozi-'+id_tappa+pa).val();
+		$('#id-luogo-'+id_tappa+pa).val(luogo_scelto);
+		for(i=1;i<luogo.length;i++){
+			luogo[i].value=luogo_a[i-1].value;
+		}
+	}
+	function checkBeforeSave(){
+		[save];
+	}
+//	$('.win_data').datepicker();
+	
+	function add_tappa(){
+		pi.requestQLoaderOpen('[id_container]','DettItinTappaAdd');
+	}
+	
+	function del_tappa(id_tappa){
+		pi.requestQLoaderOpen('id_tappa_'+id_tappa,'DettItinTappaDel');
+	}
+//	
+//	function filtraTesto(filtro,id_tappa,pa){
+//		//var filtro=$(this).val();
+//		reg=new RegExp(filtro, "gi");
+//		//$(".select-negozi-"+id_tappa+pa).css('display','none'); //li nascondo tutti
+//		//$(".select-negozi-"+id_tappa+pa).css('visibility','hidden'); //li nascondo tutti
+//		$(".select-negozi-"+id_tappa+pa).attr('disabled', 'disabled').hide(); //li nascondo tutti
+//		negozi=$(".select-negozi-"+id_tappa+pa);
+//		for (i=0;i<negozi.length;i++){//li ciclo per mostrarne alcuni
+//			nome=$(negozi[i]).attr('id_filtro') 
+//			if(nome.match(reg)!=null){
+//			//$(negozi[i]).css('display','initial');
+//			//$(negozi[i]).css('visibility','visible');
+//			$(negozi[i]).removeAttr('disabled').show(); //ne mostro uno
+//			}
+//		}
+//	}
+//	function intializer(){
+//		luogo=$("#luogo_str").val().split(":");
+//		data=$("#data_str").val().split(":");
+//		kms=$("#kms_str").val().split(":");
+//		console.log(data);
+//		console.log(luogo);
+//	}
+//
+//	var luogo;
+//	var data;
+//	var kms;
+//	intializer();
+	initMap();
+</script>
+
+
+
+

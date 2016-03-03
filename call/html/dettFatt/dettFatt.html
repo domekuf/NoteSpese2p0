@@ -30,7 +30,7 @@
 		<h3>Fornitore</h3>
 	</div>
 	<div class="col-6">
-		<select oninput="aggiornaMastroPartitario()" name="fornitore" id="win_fornitore">
+		<select onchange="aggiornaMastroPartitario()" name="fornitore" id="win_fornitore">
 			[fornitore_select]
 		</select>
 	</div>
@@ -77,14 +77,16 @@
 	function filtraTesto(){
 		var filtro=$('#fornitore_filtro').val();
 		reg=new RegExp(filtro, "gi");
-		$(".select-fornitori").css('display','none'); //li nascondo tutti
-		$(".select-fornitori").css('visibility','hidden'); //li nascondo tutti
+		$(".select-fornitori").attr('disabled', 'disabled').hide(); //li nascondo tutti
+		//$(".select-fornitori").css('display','none'); //li nascondo tutti
+		//$(".select-fornitori").css('visibility','hidden'); //li nascondo tutti
 		fornitori=$(".select-fornitori");
 		for (i=0;i<fornitori.length;i++){//li ciclo per mostrarne alcuni
 			nome=$(fornitori[i]).attr('id_filtro') 
 			if(nome.match(reg)!=null){
-			$(fornitori[i]).css('display','initial');
-			$(fornitori[i]).css('visibility','visible');
+			//$(fornitori[i]).css('display','initial');
+			//$(fornitori[i]).css('visibility','visible');
+			$(fornitori[i]).removeAttr('disabled').show(); //ne mostro uno
 			}
 		}
 	}

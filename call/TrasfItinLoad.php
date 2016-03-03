@@ -1,93 +1,63 @@
 <?//
 $id_trasf = $_POST['id_trasf'];
-$i=0;
-$out='
-<div style="display:none" id="itin_wallet">
-	Debug Purpose:
-	luogo : <input id="luogo_str" type = "text" name="luogo">
-	data : <input id="data_str" type = "text" name="data">
-	Q: <input type = "text" name="Q" value="TrasfItinDb">
-	IdTrasf: <input type = "text" name="id_trasf" value="'.$id_trasf.'">
-</div>
-	<table width="100%">
-		<tbody id="list">';
-		$qry2='	select
-			id_trasf
-			,id_tappa
-			,luogo
-			,to_char(data,\'dd/mm/yyyy\') as data
-			,data as data_2
-			from
-				psofa.pso_rs_trasf_itin
-			where
-				id_trasf='.$id_trasf.'
-				order by data_2';
-		$results2=$db->get_data($qry2);
-		foreach($results2 as $v2){
-		$id_tappa=$v2['id_tappa'];
-		$luogo=$v2['luogo'];
-		$data=$v2['data'];
-		$out.='
-			<tr id="tappa_id_'.$i.'">
-			<th>Luogo</th>
-			<td><input class="key_prevented" onchange="tappa_edit('.$i.')" id="luogo_id_'.$i.'" name="luogo" type="text" value="'.$luogo.'" /></td>
-			<td>
-			<select id="sel_neg_trasf_itin_'.$i.'" onchange="Trasf_Itin_Load_Select('.$i.')"><option selected value="">Negozio</option>
-			'.$lista_negozi.'
-			</select>
-			</td>
-			<th>Data</th>
-			<td><input onchange="tappa_edit('.$i.')"  id="data_id_'.$i.'" name="datatime" type="text" value="'.$data.'"/></td>
-			<script>configure('.$i.',\''.$luogo.'\',\''.$data.'\');</script>
-			<td>
-			<button onclick="tappa_del('.$i.')" style="cursor:pointer;" class="del icon">
-			<div></div>
-			</button>
-			</td>
-			</tr>';
-		$i++;
-		}
-		$out.='
-		</tbody>
-		
-	</table>
-	<table  width="100%" style="text:align:center">
-	<tbody><tr>
-	<td id="button_cont">
-	<button onclick="tappa_add('.$i.')" style="cursor:pointer;" class="plus">
-		<div>Nuova tappa</div>
-	</button>
-	</td>
-	<td >
-	<button onclick="pi.requestWinOpen(\'itin_wallet\')" style="cursor:pointer;" class="save">
-		<div>Salva Itinerario</div>
-	</button>
-	</td></tr></tbody>
-	</table>
+$htmlpath= 	module_path().'html/trasfItin/';
+$qrypath= 	module_path().'qry/trasfItin/';
+$commonqry= 	module_path().'_common/qry/';
+$jspath= 	module_path().'js/trasfItin/';
+$interface=carica_file($htmlpath.'trasfItin.html');
+$tappa_tmp=carica_file($htmlpath.'tappa.html');
+$qry_itin=carica_file($qrypath.'trasfItin.sql');
+$qry_negozi=carica_file($commonqry.'negozi.sql');
+$qry_itin=str_replace('[id_trasf]',$id_trasf,$qry_itin);
+$interface=str_replace('[id_trasf]',$id_trasf,$interface);
+$interface=str_replace('[id_container]','wincontainer',$interface);
+$interface=str_replace('[save]','pi.requestWinOpen(\'wincontainer\')',$interface);
+$interface=str_replace('[save_call]','trasfItinTappaSave',$interface);
+$res_itin=$db->get_data($qry_itin);
+$lista_tappe='';
 
-<script type="text/javascript">
-key_prevent("key_prevented");
-function intializer(){
-	luogo=$("#luogo_str").val().split(":");
-	data=$("#data_str").val().split(":");
-	console.log(data);
-	console.log(luogo);
+
+foreach($res_itin as $tappa){
+	
+	$select_negozi_p=qry2sel_filtrabile($qry_negozi,'voce_menu','value',$tappa['luogo'],'select-negozi-'.$tappa['id_tappa'].'p','voce_menu');
+	$select_negozi_a=qry2sel_filtrabile($qry_negozi,'voce_menu','value',$tappa['luogo'],'select-negozi-'.$tappa['id_tappa'].'a','voce_menu');
+	$lista_tappe.=
+	str_replace('[id_tappa]',$tappa['id_tappa'],
+	str_replace('[id_trasf]',$tappa['id_trasf'],
+	str_replace('[luogo]',$tappa['luogo'],
+	str_replace('[luogo_a]',$tappa['luogo_a'],
+	str_replace('[data]',$tappa['data'],
+	str_replace('[luogo_select_p]',$select_negozi_p,
+	str_replace('[luogo_select_a]',$select_negozi_a,
+	$tappa_tmp)))))));
+
 }
 
-var luogo;
-var data;
-intializer();
+$interface=str_replace('[lista_tappe]',$lista_tappe,$interface);
+
+$pr->add_script('pi.win.close()');
+$pr->add_win(1000,0,true,'Gestisci Itinerario',$interface)->response();
 
 
-function assign_go(id,q){
-	$(\'#qq\').val(q);
-	//$(\'#data_hid_\'+id).val($(\'#data_id_\'+id).val());
-	//alert($(\'#data_hid_\'+id).val());
-	//$(\'#luogo_hid_\'+id).val($(\'#luogo_id_\'+id).val())
-	pi.requestWinOpen(\'itin_wallet\'+id)
-}
-</script>
+
+
+
+/*
+
+Questo serve per numerare le tappe
+$qry_to_upd='
+select luogo, to_char(data,\'yyyymmdd\') data from psofa.pso_rs_trasf_itin
+where 1=1
+order by data
 ';
-$pr->add_win(1000,0,true,'Gestisci Itinerario',$out)->response();
-//$pr->add_win(600,0,true,'Inserisci nuova trasferta',$out)->add_script(" $('#focusme').focus(); ")->response();
+
+$res_to_upd=$db->get_data($qry_to_upd);
+
+foreach($res_to_upd as $row){
+	$qry_upd="update psofa.pso_rs_trasf_itin set id_tappa = psofa.pso_seq_rs_trasf_itin.nextval where luogo='".$row['luogo']."' and data=to_date('".$row['data']."','yyyymmdd')";
+	$db->put_data($qry_upd);
+}
+
+
+*/
 ?>

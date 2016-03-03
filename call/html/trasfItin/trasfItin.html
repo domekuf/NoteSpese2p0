@@ -1,0 +1,71 @@
+<!--Percorso : \\portal1\shares\modules\CED\NoteSpese2p0\call\html\trasfItin\trasfItin.html-->
+<div id="[id_container]">
+<div style="display:none">
+	Q: <input type = "text" name="Q" value="[save_call]">
+	IdTrasf: <input type = "text" name="id_trasf" value="[id_trasf]">
+</div>
+<div class="row grey">
+	<div class="col-2">
+		<h3>Data</h3>
+	</div>
+	<div class="col-5">
+		<h3>Partenza</h3>
+		(Digita un luogo o scegli dalla lista)
+	</div>
+	<div class="col-5">
+		<h3>Arrivo</h3>
+		(Digita un luogo o scegli dalla lista)
+	</div>
+</div>
+<div id="lista_cont">
+[lista_tappe]
+</div>
+<div class="row darkgreen" id="new">
+	<div class="col-2">
+		<input name="data_new" type="text" class="win_data"/>
+	</div>
+	<div class="col-2">
+	</div>
+	<div class="col-4">
+		<button class="click" onclick="add_tappa()"><i class="fa fa-plus"></i> Aggiungi Tappa</button>
+	</div>
+	<div class="col-4">
+		<button onclick="checkBeforeSave()" class="click"><i class="fa fa-save"></i> Salva</button>
+	</div>
+</div>
+<script>
+	function aggiornaLuogo(id_tappa,pa){
+		var luogo=$('#id-sel-negozi-'+id_tappa+pa).val();
+		$('#id-luogo-'+id_tappa+pa).val(luogo);
+		console.log(id_tappa);
+	}
+	function checkBeforeSave(){
+		[save];
+	}
+	$('.win_data').datepicker();
+	
+	function add_tappa(){
+		pi.requestQLoaderOpen('[id_container]','trasfItinTappaAdd');
+	}
+	
+	function del_tappa(id_tappa){
+		pi.requestQLoaderOpen('id_tappa_'+id_tappa,'trasfItinTappaDel');
+	}
+	
+	function filtraTesto(filtro,id_tappa,pa){
+		//var filtro=$(this).val();
+		reg=new RegExp(filtro, "gi");
+		//$(".select-negozi-"+id_tappa+pa).css('display','none'); //li nascondo tutti
+		//$(".select-negozi-"+id_tappa+pa).css('visibility','hidden'); //li nascondo tutti
+		$(".select-negozi-"+id_tappa+pa).attr('disabled', 'disabled').hide(); //li nascondo tutti
+		negozi=$(".select-negozi-"+id_tappa+pa);
+		for (i=0;i<negozi.length;i++){//li ciclo per mostrarne alcuni
+			nome=$(negozi[i]).attr('id_filtro') 
+			if(nome.match(reg)!=null){
+			//$(negozi[i]).css('display','initial');
+			//$(negozi[i]).css('visibility','visible');
+			$(negozi[i]).removeAttr('disabled').show(); //ne mostro uno
+			}
+		}
+	}
+</script>

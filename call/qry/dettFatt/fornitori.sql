@@ -12,3 +12,4 @@ where
     and psofa.anagrafico_conti_v.partitario = psofa.conti_fornitori.partitario
     and cod_campo = 'C_AR'
     and valore in ('Y')
+order by 2

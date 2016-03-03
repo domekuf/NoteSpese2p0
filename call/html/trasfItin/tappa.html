@@ -1,0 +1,23 @@
+<!--Percorso : \\portal1\shares\modules\CED\NoteSpese2p0\call\html\trasfItin\tappa.html-->
+<div id="id_tappa_[id_tappa]" class="row bone">
+	<div class="col-2">
+		<input name="id_tappa" value="[id_tappa]" type="hidden"/>
+		<input name="id_trasf" value="[id_trasf]" type="hidden"/>
+		<button class="click" onclick="del_tappa([id_tappa])" style="position:absolute;right:0px;bottom:-4px"><i class="fa fa-trash"></i></button>
+		<input name="data[[id_tappa]]" value="[data]" type="text" class="win_data"/>
+	</div>
+	<div class="col-5 np-col">
+		<input name="luogo[[id_tappa]]" value="[luogo]" type="text" oninput="filtraTesto($(this).val(),[id_tappa],'p')" id="id-luogo-[id_tappa]p" class="full-width"/>
+	
+		<select id="id-sel-negozi-[id_tappa]p"  onchange="aggiornaLuogo([id_tappa],'p')" oninput="aggiornaLuogo([id_tappa],'p')" class="no-width in-line">
+			[luogo_select_p]
+		</select>
+	</div>
+	<div class="col-5 np-col">
+		<input name="luogo_a[[id_tappa]]" value="[luogo_a]" type="text" oninput="filtraTesto($(this).val(),[id_tappa],'a')" id="id-luogo-[id_tappa]a" class="full-width"/>
+
+		<select id="id-sel-negozi-[id_tappa]a" oninput="aggiornaLuogo([id_tappa],'a')"  onchange="aggiornaLuogo([id_tappa],'a')" class="no-width in-line" class="select">
+			[luogo_select_a]
+		</select>
+	</div>
+</div>

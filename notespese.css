@@ -1,4 +1,36 @@
-
+select{
+    min-height: 26px;
+    font-size: 12px;
+    padding: 0px!important;
+    margin: 0px!important;
+    max-width: 100%;
+    min-width: 35px;
+}
+input{
+    max-width: 100%;
+    min-height: 20px;
+    font-size: 12px;
+    min-width: 35px;
+}
+input.full-width{
+    width: 99%;
+}
+input.number-width{
+    width: 35px;
+}
+select.no-width{
+	width:20px!important;
+    min-width: 0px!important;
+}
+select.in-line{
+	position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+button.in-line{
+    position: absolute;
+    bottom: -4px;
+}
 		.usr-info{
 			min-height:800px;
 			text-align:right;
